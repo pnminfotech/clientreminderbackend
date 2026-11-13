@@ -15,7 +15,7 @@ router.post('/test-email', async (req, res) => {
         console.log('Sending email to admin, client, and agent:', clientEmail, agentEmail);
 
         // Send email to admin
-        await sendEmail('pnminfotech2024@gmail.com', 'Dear Admin', 'New Policy has been created Successfully.');
+        await sendEmail('pnminfotech2024@gmail.com', 'Dear Admin', 'New record has been created successfully.');
 
         // Send email to client (if clientEmail exists)
         if (clientEmail) {

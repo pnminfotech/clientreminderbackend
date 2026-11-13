@@ -11,6 +11,10 @@ const transporter = nodemailer.createTransport({
 
 // Function to send email
 const sendEmail = async (to, subject, text,attachmentPath = null) => {
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        throw new Error('EMAIL_USER and EMAIL_PASS must both be set in backend/.env');
+    }
+
     const mailOptions = {
         from: process.env.EMAIL_USER, // Sender address
         to: to,                        // Recipient address
@@ -29,6 +33,7 @@ const sendEmail = async (to, subject, text,attachmentPath = null) => {
         console.log('Email sent successfully to ' + to);
     } catch (error) {
         console.error('Error sending email:', error);
+        throw error;
     }
 };
 

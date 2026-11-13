@@ -1,32 +1,14 @@
 const mongoose = require('mongoose');
 
 const policySchema = new mongoose.Schema({
-    policyNumber: { type: String, required: true },
-    clientName: { type: String, required: true },
-    clientEmail: { type: String, required: true },
-    company: { type: String, required: true },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-    productName: { type: String, required: true }, // New field for Product Name
-    isRenewed: { type: Boolean, default: false },
+    clientName: { type: String, required: true, trim: true },
+    startDate: { type: Date, default: null },
+    dueDate: { type: Date, required: true },
+    paidDate: { type: Date, default: null },
+    remindersSent: [{
+        stage: { type: String, enum: ['one-month', '15-days', '2-days'] },
+        sentAt: { type: Date, default: Date.now },
+    }],
+}, { timestamps: true });
 
-    agentName: {              // New field for agent name
-        type: String,
-        required: true
-    },
-    agentCode: {              // New field for agent code
-        type: String,
-        required: true
-    },
-    agentMobile: {            // New field for agent mobile number
-        type: String,
-        required: true
-    },
-    agentEmail: {             // New field for agent email
-        type: String,
-        required: true
-    }
-});
-
-const Policy = mongoose.model('Policy', policySchema);
-module.exports = Policy;
+module.exports = mongoose.model('Policy', policySchema);
